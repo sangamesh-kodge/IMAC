@@ -15,3 +15,4 @@ Circuit Simulation:
     OutvsW.png                      : Effect of W sweep on Output
     ExpvsObs.png                    : Expected output vs Observed Output
     
+Trained Parameters: https://drive.google.com/file/d/1Z_9ZXXWG4P6jbfc6K7xdWg4bPQDYRfGY/view?usp=sharing
