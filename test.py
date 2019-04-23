@@ -104,15 +104,7 @@ def test(epoch, best_loss, best_epoch, best_correct, do_quantise,do_add_error,mo
             torch.save(model, "vgg_parameter.pt")
             
     return best_loss, best_epoch, best_correct,correct
-'''
-for epoch in range(200):
-    scheduler.step()
-    train(epoch)
-    best_loss, best_epoch, best_correct,_ = test(epoch, best_loss, best_epoch, best_correct, do_quantise=False,do_add_error=False,mode=False,update=True)
- 
 
-
-'''
 epoch=0
 model=torch.load("vgg_parameter.pt")
 best_loss, best_epoch, best_correct,_ = test(epoch, best_loss, best_epoch, best_correct, do_quantise=False,do_add_error=False,mode=False,update=False)
