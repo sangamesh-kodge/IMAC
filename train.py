@@ -104,7 +104,7 @@ def test(epoch, best_loss, best_epoch, best_correct, do_quantise,do_add_error,mo
             torch.save(model, "vgg_parameter.pt")
             
     return best_loss, best_epoch, best_correct,correct
-'''
+
 for epoch in range(200):
     scheduler.step()
     train(epoch)
@@ -112,36 +112,3 @@ for epoch in range(200):
  
 
 
-'''
-epoch=0
-model=torch.load("vgg_parameter.pt")
-best_loss, best_epoch, best_correct,_ = test(epoch, best_loss, best_epoch, best_correct, do_quantise=False,do_add_error=False,mode=False,update=False)
-
-model=torch.load("vgg_parameter.pt")
-model.sigma=0.0
-model.bit_A=3
-model.bit_W=4
-model.quantise_weigths(do_quantise=True)
-model.error_initialiser()
-best_loss, best_epoch, best_correct,_ = test(epoch, best_loss, best_epoch, best_correct, do_quantise=True,do_add_error=False,mode=True,update=False)
-
-Min=10000
-Max=0
-MC_correct=torch.zeros(1000)
-for i in range(1000):
-    correct=0
-    model=torch.load("vgg_parameter.pt")
-    model.sigma=1.3
-    model.bit_A=4
-    model.bit_W=4
-    model.quantise_weigths(do_quantise=True)
-    model.error_initialiser()
-    print(i)
-    best_loss, best_epoch, _,correct = test(epoch, best_loss, best_epoch, best_correct, do_quantise=True,do_add_error=True,mode=True,update=False)
-    MC_correct[i]=correct
-    if(correct>Max):
-        Max=correct
-    if(correct<Min):
-        Min=correct
-print(Min,Max)
-torch.save(MC_correct, "error_accuracy.pt")
