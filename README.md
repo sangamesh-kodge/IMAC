@@ -15,3 +15,6 @@ Application Level:
 
 Circuit Simulation:
 
+    Contains the codes for generating the graphs and histograms presented in the paper. The results were
+    obtained from circuit simulations in tsmc65nm Technology node.
+
