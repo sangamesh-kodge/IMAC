@@ -1,4 +1,4 @@
-# 6T-SRAM-Multiplication
+# In-Memory Multi-Bit Multiplication in 6 Transistor SRAM Cells
 Application Level:
 
     train.py            : Training the parameters of the network on Cifar10.
