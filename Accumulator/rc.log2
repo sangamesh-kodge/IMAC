@@ -1,0 +1,564 @@
+Checking out license 'RTL_Compiler_Ultra'... (0 seconds elapsed)
+License 'RTL_Compiler_Ultra' (main version: 14.2, alternate version: 14.2) checkout failed.
+Checking out license 'Genus_Synthesis'... (0 seconds elapsed)
+Finished loading tool scripts (7 seconds elapsed)
+
+                                                                                                      Cadence Encounter(R) RTL Compiler
+                                                                                         Version RC14.28 - v14.20-s067_1 (64-bit), built Jun 22 2016
+
+
+Copyright notice: Copyright 1997-2015 Cadence Design Systems, Inc. All rights reserved worldwide. 
+
+WARNING: This version of RC is 1113 days old.
+         Visit downloads.cadence.com for the latest release of RC.
+
+
+=============================================================================================================================================================================================================================================
+                                                                                                Welcome to Cadence Encounter(R) RTL Compiler
+
+Here is a quick introduction on how to access our product information.  
+If you do not want this message to appear in the future, create an 
+initialization file (an empty file will do) in your home directory 
+called '~/.cadence/.synth_init'.
+
+  To access the product documentation in HTML and PDF, type 'cdnshelp'
+    at the system prompt. 
+  For a list of available commands, type 'help'. 
+  To view a man page for a command, type 'man <commandName>'.
+  To view a man page for an error message, type 'man <messageID>'.
+  For a list of all possible object types, type 'get_attribute -help'.
+  For a list of all available attributes by object type, type
+    'get_attribute * <object_type> -help'.
+  For a list of all attributes for every object type, type
+    'get_attribute * * -help'
+  To list only writable attributes, substitute 'get_attribute' with
+    'set_attribute'.
+  To get a template script to run RTL Compiler, use the 'write_template'
+    command.
+  To get a template script to run Conformal based on the current RTL
+    Compiler session, use the 'write_do_lec' command.
+  
+  Obsolete attributes in the current tool version.
+  To learn more, type 'get_attribute -help <attribute> <object>'.
+
+            object  attribute
+            ------  ---------
+       cpf_command  synthesize_complex_expressions
+    cpf_command_id  current_set_instance_macro
+    cpf_command_id  current_set_instance_module
+    cpf_command_id  done_in_apply_cpf
+    cpf_command_id  done_in_write_cpf
+    cpf_command_id  macro_definition_command
+    cpf_command_id  rc_command
+            design  base_mode
+            design  disable_power_mode_factorization
+            design  dp_perform_rewriting_operations
+            design  lp_clock_gating_hierarchical
+            design  lp_map_to_srpg_cells
+            design  lp_optimize_dynamic_power_first
+            design  lp_srpg_pg_driver
+          instance  black_box
+          instance  dft_inherited_dont_scan
+          instance  gint_has_connected_pg_pin
+          instance  lp_map_to_srpg_cells
+          instance  lp_map_to_srpg_type
+          instance  lp_srpg_pg_driver
+           libcell  black_box
+           libcell  location
+            libpin  q_pin_of_d_pin
+               net  hier_net
+               net  logic0_driven
+               net  logic1_driven
+      power_domain  library_domain_by_mode
+      power_domain  shutoff_signal
+      power_domain  shutoff_signal_polarity
+              root  auto_ungroup_min_effort
+              root  constant_prop_through_iso_cell
+              root  degenerate_complex_seqs
+              root  disable_power_mode
+              root  dp_perform_csa_operations
+              root  dp_perform_rewriting_operations
+              root  dp_perform_sharing_operations
+              root  dp_perform_speculation_operations
+              root  driver_for_unloaded_ports
+              root  enable_parallel_iopt
+              root  enc_in_place_opt
+              root  enc_opt_drv
+              root  hdl_flatten_array
+              root  hdl_old_reg_naming
+              root  hdl_reg_naming_style_scalar
+              root  hdl_reg_naming_style_vector
+              root  hdl_trim_target_index
+              root  hdl_use_params_in_cell_search
+              root  ignore_unknown_embedded_commands
+              root  lbr_async_clr_pre_seqs_interchangable
+              root  lp_clock_gating_hierarchical
+              root  lp_insert_clock_gating_incremental
+              root  lp_iopt_mvt_multipass_flow
+              root  lp_multi_vt_optimization_effort
+              root  ovf_mode
+              root  ovf_verification_directory
+              root  ple_parameter_source_priority
+              root  power_optimization_effort
+              root  pqos_virtual_buffer
+              root  retime_preserve_state_points
+              root  wlec_env_var
+              root  wlec_flat_r2n
+              root  wlec_no_exit
+              root  wlec_old_lp_ec_flow
+              root  wlec_save_ssion
+              root  wlec_sim_lib
+              root  wlec_sim_plus_lib
+              root  wlec_skip_iso_check_hier_compare
+              root  wlec_skip_lvl_check_hier_compare
+              root  wlec_verbose
+         subdesign  allow_csa_subdesign
+         subdesign  allow_sharing_subdesign
+         subdesign  allow_speculation_subdesign
+         subdesign  auto_ungroup_ok
+         subdesign  dp_perform_rewriting_operations
+         subdesign  lp_clock_gating_hierarchical
+
+Send us feedback at rc_feedback@cadence.com.
+=============================================================================================================================================================================================================================================
+
+rc:/> source rtl.tcl 
+Sourcing './rtl.tcl' (Wed Jul 10 15:10:04 -0400 2019)...
+  Setting attribute of root '/': 'lib_search_path' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Front_End/timing_power_noise/ECSM/tcbn65lp_200a
+
+  Message Summary for Library tcbn65lpbc_ecsm.lib:
+  ************************************************
+  Could not find an attribute in the library. [LBR-436]: 989
+  Missing a function attribute in the output pin definition. [LBR-518]: 1
+  An unsupported construct was detected in this library. [LBR-40]: 1
+  ************************************************
+ 
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 1.320000, 0.000000) in library 'tcbn65lpbc_ecsm.lib'.
+        : The nominal operating condition represents either the nominal PVT values if specified in the library source, or the default PVT values (1.0, 1.0, 1.0).
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+        : Add the missing output pin(s), then reload the library. Otherwise, the library cell will be marked as unusable and as timing model.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLHQD20'
+        : To use the cell in clock gating, Set cell attribute 'dont_use' false in the library.
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLHQD24'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLNQD20'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLNQD24'
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP16' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP16' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP32' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP32' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP64' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP64' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP2' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP2' must have an output pin.
+  Setting attribute of root '/': 'library' = tcbn65lpbc_ecsm.lib
+  Setting attribute of root '/': 'interconnect_mode' = ple
+  Setting attribute of root '/': 'lib_search_path' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef
+
+  According to lef_library, there are total 7 routing layers [ V(3) / H(4) ]
+
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M1' [line 120 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+        : Check the parameter in technology section.
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M3' [line 284 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M5' [line 450 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'AP' [line 576 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.09, 3) of 'WIDTH' for layers 'M1' and 'AP' is too large.
+        : Make sure to check the consistency of the parameters.
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.2, 6.5) of 'PITCH' for layers 'M2' and 'AP' is too large.
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.09, 2) of 'MINSPACING' for layers 'M1' and 'AP' is too large.
+  Library has 441 usable logic and 280 usable sequential lib-cells.
+Info    : Found unusable library cells. [LBR-415]
+        : Library: 'tcbn65lpbc_ecsm.lib', Total cells: 816, Unusable cells: 77.
+	List of unusable cells: 'ANTENNA BHD BUFFD20 BUFFD24 BUFTD20 BUFTD24 CKBD20 CKBD24 CKLHQD20 CKLHQD24 ... and others.'
+        : For more information, refer to 'Cells Identified as Unusable' in the RC User Guide. The number of unusable cells that is listed depends on the setting of the 'information_level' root attribute. If set to a value less than 6, the list is limited to 10 unusable cells. If set to a value equal to or higher than 6, all unusable cells are listed.
+  Setting attribute of root '/': 'lef_library' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef
+initial 
+      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial in file 'accumulator.v' on line 32, column 7.
+        : The following constructs will be ignored:
+    - initial block
+    - final block
+    - program block
+    - property block
+    - sequence block
+    - covergroup
+    - gate drive strength
+    - system task enable
+    - reg declaration with initial value
+    - specify block.
+always @(posedge (clk) & posedge (en))
+                               |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file 'accumulator.v' on line 37, column 32.
+        : Invalid Verilog syntax is parsed, or unsupported Verilog syntax is encountered.
+always @(posedge (clk) & posedge (en))
+                       |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file 'accumulator.v' on line 37, column 24.
+        : Illegal Verilog syntax is encountered.
+always @(posedge (clk) & posedge (en))
+                                 |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expected ',', ')', or 'or' in file 'accumulator.v' on line 37, column 34.
+always @(posedge (clk) & posedge (en))
+                                 |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ')', found '(' in file 'accumulator.v' on line 37, column 34.
+always @(posedge (clk) & posedge (en))
+                                 |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting a statement in file 'accumulator.v' on line 37, column 34.
+always @(posedge (clk) & posedge (en))
+                                 |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file 'accumulator.v' on line 37, column 34.
+always @(posedge (clk) & posedge (en))
+                                 |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found '(' in file 'accumulator.v' on line 37, column 34.
+	end
+	  |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file 'accumulator.v' on line 42, column 4.
+	end
+	  |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'end' in file 'accumulator.v' on line 42, column 4.
+	end
+	  |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file 'accumulator.v' on line 46, column 4.
+	end
+	  |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'end' in file 'accumulator.v' on line 46, column 4.
+	end
+	  |
+Error   : Unexpected end of file. [VLOGPT-11] [read_hdl]
+        : Expecting token ';', reached end of file in file 'accumulator.v' on line 46, column 4.
+        : Unexpected end of file encountered.
+1
+rc:/> source rtl.tcl 
+Sourcing './rtl.tcl' (Wed Jul 10 15:10:48 -0400 2019)...
+  Setting attribute of root '/': 'lib_search_path' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Front_End/timing_power_noise/ECSM/tcbn65lp_200a
+Freeing libraries in memory (tcbn65lpbc_ecsm.lib)
+
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 1.320000, 0.000000) in library 'tcbn65lpbc_ecsm.lib'.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLHQD20'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLHQD24'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLNQD20'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLNQD24'
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP16' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP16' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP32' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP32' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP64' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP64' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP2' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP2' must have an output pin.
+  Library has 441 usable logic and 280 usable sequential lib-cells.
+Info    : Found unusable library cells. [LBR-415]
+        : Library: 'tcbn65lpbc_ecsm.lib', Total cells: 816, Unusable cells: 77.
+	List of unusable cells: 'ANTENNA BHD BUFFD20 BUFFD24 BUFTD20 BUFTD24 CKBD20 CKBD24 CKLHQD20 CKLHQD24 ... and others.'
+  Setting attribute of root '/': 'library' = tcbn65lpbc_ecsm.lib
+  Setting attribute of root '/': 'interconnect_mode' = ple
+  Setting attribute of root '/': 'lib_search_path' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef
+
+  According to lef_library, there are total 7 routing layers [ V(3) / H(4) ]
+
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M1' [line 120 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M3' [line 284 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M5' [line 450 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'AP' [line 576 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.09, 3) of 'WIDTH' for layers 'M1' and 'AP' is too large.
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.2, 6.5) of 'PITCH' for layers 'M2' and 'AP' is too large.
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.09, 2) of 'MINSPACING' for layers 'M1' and 'AP' is too large.
+Info    : Found unusable library cells. [LBR-415]
+        : Library: 'tcbn65lpbc_ecsm.lib', Total cells: 816, Unusable cells: 77.
+	List of unusable cells: 'ANTENNA BHD BUFFD20 BUFFD24 BUFTD20 BUFTD24 CKBD20 CKBD24 CKLHQD20 CKLHQD24 ... and others.'
+  Setting attribute of root '/': 'lef_library' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef
+initial 
+      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial in file 'accumulator.v' on line 32, column 7.
+always @(posedge (clk & en) )
+         |
+Error   : Edge signal must be identifier or bit-select. [VLOGPT-424] [read_hdl]
+        : in file 'accumulator.v' on line 37, column 10.
+        : Only simple identifiers which are single-bit signals are allowed when posedge or negedge is used.
+e.g. always @(posedge clk) is allowed only if clk is a single-bit signal
+e.g. always @(posedge (clock1 | clock2)) is not allowed.
+1
+rc:/> source rtl.tcl 
+Sourcing './rtl.tcl' (Wed Jul 10 15:18:15 -0400 2019)...
+  Setting attribute of root '/': 'lib_search_path' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Front_End/timing_power_noise/ECSM/tcbn65lp_200a
+Freeing libraries in memory (tcbn65lpbc_ecsm.lib)
+
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 1.320000, 0.000000) in library 'tcbn65lpbc_ecsm.lib'.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLHQD20'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLHQD24'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLNQD20'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLNQD24'
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP16' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP16' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP32' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP32' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP64' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP64' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP2' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP2' must have an output pin.
+  Library has 441 usable logic and 280 usable sequential lib-cells.
+Info    : Found unusable library cells. [LBR-415]
+        : Library: 'tcbn65lpbc_ecsm.lib', Total cells: 816, Unusable cells: 77.
+	List of unusable cells: 'ANTENNA BHD BUFFD20 BUFFD24 BUFTD20 BUFTD24 CKBD20 CKBD24 CKLHQD20 CKLHQD24 ... and others.'
+  Setting attribute of root '/': 'library' = tcbn65lpbc_ecsm.lib
+  Setting attribute of root '/': 'interconnect_mode' = ple
+  Setting attribute of root '/': 'lib_search_path' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef
+
+  According to lef_library, there are total 7 routing layers [ V(3) / H(4) ]
+
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M1' [line 120 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M3' [line 284 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M5' [line 450 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'AP' [line 576 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.09, 3) of 'WIDTH' for layers 'M1' and 'AP' is too large.
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.2, 6.5) of 'PITCH' for layers 'M2' and 'AP' is too large.
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.09, 2) of 'MINSPACING' for layers 'M1' and 'AP' is too large.
+Info    : Found unusable library cells. [LBR-415]
+        : Library: 'tcbn65lpbc_ecsm.lib', Total cells: 816, Unusable cells: 77.
+	List of unusable cells: 'ANTENNA BHD BUFFD20 BUFFD24 BUFTD20 BUFTD24 CKBD20 CKBD24 CKLHQD20 CKLHQD24 ... and others.'
+  Setting attribute of root '/': 'lef_library' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef
+assign clken = clk & en
+     |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'assign' in file 'accumulator.v' on line 32, column 6.
+initial 
+      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial in file 'accumulator.v' on line 35, column 7.
+1
+rc:/> source rtl.tcl 
+Sourcing './rtl.tcl' (Wed Jul 10 15:18:37 -0400 2019)...
+  Setting attribute of root '/': 'lib_search_path' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Front_End/timing_power_noise/ECSM/tcbn65lp_200a
+Freeing libraries in memory (tcbn65lpbc_ecsm.lib)
+
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 1.320000, 0.000000) in library 'tcbn65lpbc_ecsm.lib'.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLHQD20'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLHQD24'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLNQD20'
+Warning : Unusable clock gating integrated cell. [LBR-101]
+        : Clock gating integrated cell name: 'CKLNQD24'
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP16' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP16' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP32' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP32' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP64' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP64' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DCAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP2' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'GDCAP2' must have an output pin.
+  Library has 441 usable logic and 280 usable sequential lib-cells.
+Info    : Found unusable library cells. [LBR-415]
+        : Library: 'tcbn65lpbc_ecsm.lib', Total cells: 816, Unusable cells: 77.
+	List of unusable cells: 'ANTENNA BHD BUFFD20 BUFFD24 BUFTD20 BUFTD24 CKBD20 CKBD24 CKLHQD20 CKLHQD24 ... and others.'
+  Setting attribute of root '/': 'library' = tcbn65lpbc_ecsm.lib
+  Setting attribute of root '/': 'interconnect_mode' = ple
+  Setting attribute of root '/': 'lib_search_path' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef
+
+  According to lef_library, there are total 7 routing layers [ V(3) / H(4) ]
+
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M1' [line 120 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M3' [line 284 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'M5' [line 450 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : Wire parameter is missing. [PHYS-15]
+        : 'OFFSET' parameter is missing for layer 'AP' [line 576 in file /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef]
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.09, 3) of 'WIDTH' for layers 'M1' and 'AP' is too large.
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.2, 6.5) of 'PITCH' for layers 'M2' and 'AP' is too large.
+Warning : The variant range of wire parameters is too large. [PHYS-12]
+        : The variant range (0.09, 2) of 'MINSPACING' for layers 'M1' and 'AP' is too large.
+Info    : Found unusable library cells. [LBR-415]
+        : Library: 'tcbn65lpbc_ecsm.lib', Total cells: 816, Unusable cells: 77.
+	List of unusable cells: 'ANTENNA BHD BUFFD20 BUFFD24 BUFTD20 BUFTD24 CKBD20 CKBD24 CKLHQD20 CKLHQD24 ... and others.'
+  Setting attribute of root '/': 'lef_library' = /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_6lmT1.lef
+assign clken = clk & en;
+     |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'assign' in file 'accumulator.v' on line 32, column 6.
+initial 
+      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial in file 'accumulator.v' on line 35, column 7.
+1
+rc:/> 
+rc:/> quit

@@ -1,0 +1,64 @@
+# //  Questa Sim-64
+# //  Version 10.3b linux_x86_64 May 29 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading project Accumulator
+# Compile of accumulator.v was successful.
+# Compile of testbench.v was successful.
+# 2 compiles, 0 failed with no errors.
+# Compile of accumulator.v was successful.
+# Compile of testbench.v was successful.
+# 2 compiles, 0 failed with no errors.
+vsim
+# vsim 
+# Start time: 18:59:05 on Jul 13,2019
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/work.testbench
+# Loading work.testbench
+# Refreshing /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/work.accumulator
+# Loading work.accumulator
+# ** Error: (vsim-3053) /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v(27): Illegal output or inout port connection for "port 'out'".
+#         Region: /testbench/DUT
+# Error loading design
+vsim
+# vsim 
+# Start time: 18:59:13 on Jul 13,2019
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Loading work.testbench
+# Loading work.accumulator
+# ** Error: (vsim-3053) /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v(27): Illegal output or inout port connection for "port 'out'".
+#         Region: /testbench/DUT
+# Error loading design
+vsim
+# vsim 
+# Start time: 19:08:16 on Jul 13,2019
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Loading work.testbench
+# Loading work.accumulator
+# ** Error: (vsim-3053) /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v(27): Illegal output or inout port connection for "port 'out'".
+#         Region: /testbench/DUT
+# Error loading design
+# Compile of accumulator.v was successful.
+# Compile of testbench.v was successful.
+# 2 compiles, 0 failed with no errors.
+vsim
+# vsim 
+# Start time: 19:08:34 on Jul 13,2019
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/work.testbench
+# Loading work.testbench
+# Refreshing /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/work.accumulator
+# Loading work.accumulator
+add wave -position insertpoint  \
+sim:/testbench/clk \
+sim:/testbench/en \
+sim:/testbench/in \
+sim:/testbench/out \
+sim:/testbench/reset
+run 200ns

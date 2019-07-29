@@ -1,0 +1,239 @@
+
+Cadence Innovus(TM) Implementation System.
+Copyright 2016 Cadence Design Systems, Inc. All rights reserved worldwide.
+
+Version:	v16.12-s051_1, built Wed Aug 17 12:18:54 PDT 2016
+Options:	
+Date:		Wed Jul 10 15:35:29 2019
+Host:		ecegrid-thin4.ecn.purdue.edu (x86_64 w/Linux 2.6.32-754.15.3.el6.x86_64) (12cores*48cpus*Intel(R) Xeon(R) CPU E5-2697 v2 @ 2.70GHz 30720KB)
+OS:		Red Hat Enterprise Linux Workstation release 6.10 (Santiago)
+
+License:
+		invs	Innovus Implementation System	16.1	checkout succeeded
+		8 CPU jobs allowed with the current license(s). Use setMultiCpuUsage to set your required CPU count.
+
+**INFO:  MMMC transition support version v31-84 
+
+<CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+<CMD> suppressMessage ENCEXT-2799
+<CMD> getDrawView
+<CMD> loadWorkspace -name Physical
+<CMD> win
+<CMD> set init_lef_file ../../../../../../../nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_9lmT2.lef
+<CMD> set init_design_settop 0
+<CMD> set init_verilog accumulator_synth.v
+<CMD> init_design
+**WARN: (GLOBAL-100):	Global 'timing_disable_backward_compatible_mmmc_mode' has become obsolete. It will be removed in the next release.
+
+Loading LEF file ../../../../../../../nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef/tcbn65lp_9lmT2.lef ...
+Set DBUPerIGU to M2 pitch 400.
+**WARN: (IMPLF-200):	Pin 'I' in macro 'ANTENNA' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man IMPLF-200' for more detail.
+
+viaInitial starts at Wed Jul 10 16:12:22 2019
+viaInitial ends at Wed Jul 10 16:12:22 2019
+*** End library_loading (cpu=0.00min, mem=0.0M, fe_cpu=26.48min, fe_real=36.88min, fe_mem=573.7M) ***
+#- Begin Load netlist data ... (date=07/10 16:12:22, mem=573.7M)
+*** Begin netlist parsing (mem=573.7M) ***
+Created 0 new cells from 0 timing libraries.
+Reading netlist ...
+Backslashed names will retain backslash and a trailing blank character.
+Reading verilog netlist 'accumulator_synth.v'
+
+*** Memory Usage v#1 (Current mem = 574.727M, initial mem = 166.582M) ***
+*** End netlist parsing (cpu=0:00:00.0, real=0:00:00.0, mem=574.7M) ***
+#- End Load netlist data ... (date=07/10 16:12:22, total cpu=0:00:00.0, real=0:00:00.0, peak res=574.7M, current mem=574.7M)
+Top level cell is accumulator.
+Hooked 0 DB cells to tlib cells.
+Starting recursive module instantiation check.
+No recursion found.
+Building hierarchical netlist for Cell accumulator ...
+*** Netlist is unique.
+** info: there are 857 modules.
+** info: there are 65 stdCell insts.
+
+*** Memory Usage v#1 (Current mem = 593.480M, initial mem = 166.582M) ***
+**WARN: (IMPFP-3961):	The techSite 'dcore' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+Type 'man IMPFP-3961' for more detail.
+**WARN: (IMPFP-3961):	The techSite 'ccore' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+Type 'man IMPFP-3961' for more detail.
+Set Default Net Delay as 1000 ps.
+Set Default Net Load as 0.5 pF. 
+Set Default Input Pin Transition as 0.1 ps.
+
+**WARN: (IMPSYT-7328):	The design has been initialized in physical-only mode because the init_mmmc_file global variable was not defined. Timing analysis will not be possible within this session. You can only use commands that do not depend on timing data. If you need to use timing, you need to restart with an init_mmmc_file to define the timing setup, or you can save this design and use restoreDesign -mmmc_file <viewDef.tcl> to add the timing setup information.
+
+*** Summary of all messages that are not suppressed in this session:
+Severity  ID               Count  Summary                                  
+WARNING   IMPLF-200            1  Pin '%s' in macro '%s' has no ANTENNAGAT...
+WARNING   IMPFP-3961           2  The techSite '%s' has no related standar...
+WARNING   IMPSYT-7328          1  The design has been initialized in physi...
+*** Message Summary: 4 warning(s), 0 error(s)
+
+<CMD> setPlaceMode -fp false
+<CMD> placeDesign
+**WARN: (IMPSP-9513):	Timing constraint file does not exist
+**WARN: (IMPSP-9514):	Non-TimingDriven placement will be performed.
+*** Starting placeDesign default flow ***
+Deleted 0 physical inst  (cell - / prefix -).
+Extracting standard cell pins and blockage ...... 
+Pin and blockage extraction finished
+Extracting macro/IO cell pins and blockage ...... 
+Pin and blockage extraction finished
+*** Starting "NanoPlace(TM) placement v#1 (mem=716.3M)" ...
+Options: clkGateAware ignoreScan pinGuide congEffort=auto gpeffort=medium 
+Scan chains were not defined.
+#std cell=65 (0 fixed + 65 movable) #block=0 (0 floating + 0 preplaced)
+#ioInst=0 #net=104 #term=333 #term/net=3.20, #fixedIo=0, #floatIo=0, #fixedPin=0, #floatPin=40
+stdCell: 65 single + 0 double + 0 multi
+Total standard cell length = 0.3010 (mm), area = 0.0005 (mm^2)
+Estimated cell power/ground rail width = 0.225 um
+Average module density = 0.702.
+Density for the design = 0.702.
+       = stdcell_area 1505 sites (542 um^2) / alloc_area 2145 sites (772 um^2).
+Pin Density = 0.1552.
+            = total # of pins 333 / total area 2145.
+=== lastAutoLevel = 5 
+**WARN: (IMPSP-9531):	Turning off clkGateAware when timingDriven is off
+Iteration  1: Total net bbox = 0.000e+00 (0.00e+00 0.00e+00)
+              Est.  stn bbox = 0.000e+00 (0.00e+00 0.00e+00)
+              cpu = 0:00:00.0 real = 0:00:00.0 mem = 716.3M
+Iteration  2: Total net bbox = 0.000e+00 (0.00e+00 0.00e+00)
+              Est.  stn bbox = 0.000e+00 (0.00e+00 0.00e+00)
+              cpu = 0:00:00.0 real = 0:00:00.0 mem = 716.3M
+Iteration  3: Total net bbox = 6.977e-02 (4.21e-02 2.77e-02)
+              Est.  stn bbox = 1.025e-01 (6.27e-02 3.98e-02)
+              cpu = 0:00:00.0 real = 0:00:00.0 mem = 716.3M
+Iteration  4: Total net bbox = 1.700e+02 (9.56e+01 7.45e+01)
+              Est.  stn bbox = 2.701e+02 (1.48e+02 1.22e+02)
+              cpu = 0:00:00.0 real = 0:00:00.0 mem = 716.3M
+Iteration  5: Total net bbox = 2.674e+02 (1.25e+02 1.43e+02)
+              Est.  stn bbox = 4.033e+02 (1.93e+02 2.10e+02)
+              cpu = 0:00:00.0 real = 0:00:00.0 mem = 716.3M
+Iteration  6: Total net bbox = 1.523e+03 (8.45e+02 6.78e+02)
+              Est.  stn bbox = 1.669e+03 (9.16e+02 7.53e+02)
+              cpu = 0:00:00.0 real = 0:00:01.0 mem = 716.3M
+*** cost = 1.523e+03 (8.45e+02 6.78e+02) (cpu for global=0:00:00.0) real=0:00:01.0***
+Core Placement runtime cpu: 0:00:00.0 real: 0:00:01.0
+**WARN: (IMPSP-9025):	No scan chain specified/traced.
+Type 'man IMPSP-9025' for more detail.
+*** Starting refinePlace (0:26:31 mem=716.3M) ***
+Total net bbox length = 1.523e+03 (8.451e+02 6.779e+02) (ext = 1.020e+03)
+Density distribution unevenness ratio = 4.155%
+Move report: Detail placement moves 65 insts, mean move: 2.16 um, max move: 8.15 um
+	Max move on inst (out_reg[3]): (1.59, 23.06) --> (7.60, 25.20)
+	Runtime: CPU: 0:00:00.0 REAL: 0:00:00.0 MEM: 717.3MB
+Summary Report:
+Instances move: 65 (out of 65 movable)
+Instances flipped: 0
+Mean displacement: 2.16 um
+Max displacement: 8.15 um (Instance: out_reg[3]) (1.5895, 23.0575) -> (7.6, 25.2)
+	Length: 30 sites, height: 1 rows, site name: core, cell type: EDFCNQD1
+Total net bbox length = 1.490e+03 (6.958e+02 7.944e+02) (ext = 9.470e+02)
+Runtime: CPU: 0:00:00.0 REAL: 0:00:00.0 MEM: 717.3MB
+*** Finished refinePlace (0:26:31 mem=717.3M) ***
+*** End of Placement (cpu=0:00:00.2, real=0:00:01.0, mem=717.3M) ***
+default core: bins with density >  0.75 =    0 % ( 0 / 4 )
+Density distribution unevenness ratio = 0.500%
+Starting congestion repair ...
+[NR-eGR] honorMsvRouteConstraint: false
+[NR-eGR] honorClockSpecNDR      : 0
+[NR-eGR] minRouteLayer          : 2
+[NR-eGR] maxRouteLayer          : 2147483647
+[NR-eGR] numTracksPerClockWire  : 0
+[NR-eGR] Layer1 has no routable track
+[NR-eGR] Layer2 has single uniform track structure
+[NR-eGR] Layer3 has single uniform track structure
+[NR-eGR] Layer4 has single uniform track structure
+[NR-eGR] Layer5 has single uniform track structure
+[NR-eGR] Layer6 has single uniform track structure
+[NR-eGR] Layer7 has single uniform track structure
+[NR-eGR] Layer8 has single uniform track structure
+[NR-eGR] Layer9 has single uniform track structure
+[NR-eGR] Layer10 has single uniform track structure
+[NR-eGR] numRoutingBlks=0 numInstBlks=0 numPGBlocks=0 numBumpBlks=0 numBoundaryFakeBlks=0
+[NR-eGR] numPreroutedNet = 0  numPreroutedWires = 0
+[NR-eGR] Read numTotalNets=98  numIgnoredNets=0
+[NR-eGR] ============ Routing rule table ============
+[NR-eGR] Rule id 0. Nets 98 
+[NR-eGR] id=0  ndrTrackId=0  ndrViaId=-1  extraSpace=0  numShields=0  maxHorDemand=1  maxVerDemand=1
+[NR-eGR] Pitch:  L1=360  L2=400  L3=400  L4=400  L5=400  L6=400  L7=400  L8=1600  L9=1600  L10=13000
+[NR-eGR] ========================================
+[NR-eGR] 
+[NR-eGR] Layer group 1: route 98 net(s) in layer range [2, 10]
+[NR-eGR] earlyGlobalRoute overflow of layer group 1: 0.00% H + 0.00% V. EstWL: 7.506000e+02um
+[NR-eGR] 
+[NR-eGR] Overflow after earlyGlobalRoute (GR compatible) 0.00% H + 0.00% V
+[NR-eGR] Overflow after earlyGlobalRoute 0.00% H + 0.00% V
+Local HotSpot Analysis: normalized max congestion hotspot area = 0.00, normalized total congestion hotspot area = 0.00 (area is in unit of 4 std-cell row bins)
+describeCongestion: hCong = 0.00 vCong = 0.00
+Skipped repairing congestion.
+[NR-eGR] Layer1(M1)(F) length: 0.000000e+00um, number of vias: 287
+[NR-eGR] Layer2(M2)(V) length: 4.552000e+02um, number of vias: 398
+[NR-eGR] Layer3(M3)(H) length: 3.152000e+02um, number of vias: 0
+[NR-eGR] Layer4(M4)(V) length: 0.000000e+00um, number of vias: 0
+[NR-eGR] Layer5(M5)(H) length: 0.000000e+00um, number of vias: 0
+[NR-eGR] Layer6(M6)(V) length: 0.000000e+00um, number of vias: 0
+[NR-eGR] Layer7(M7)(H) length: 0.000000e+00um, number of vias: 0
+[NR-eGR] Layer8(M8)(V) length: 0.000000e+00um, number of vias: 0
+[NR-eGR] Layer9(M9)(H) length: 0.000000e+00um, number of vias: 0
+[NR-eGR] Layer10(AP)(V) length: 0.000000e+00um, number of vias: 0
+[NR-eGR] Total length: 7.704000e+02um, number of vias: 685
+End of congRepair (cpu=0:00:00.0, real=0:00:00.0)
+*** Finishing placeDesign default flow ***
+**placeDesign ... cpu = 0: 0: 0, real = 0: 0: 1, mem = 717.3M **
+Command spTest is not supported.
+
+*** Summary of all messages that are not suppressed in this session:
+Severity  ID               Count  Summary                                  
+WARNING   IMPSP-9513           1  Timing constraint file does not exist    
+WARNING   IMPSP-9514           1  Non-TimingDriven placement will be perfo...
+WARNING   IMPSP-9531           1  Turning off clkGateAware when timingDriv...
+WARNING   IMPSP-9025           1  No scan chain specified/traced.          
+*** Message Summary: 4 warning(s), 0 error(s)
+
+<CMD> gui_select -rect {23.660 18.755 30.015 18.381}
+<CMD> setLayerPreference pinblock -isVisible 1
+<CMD> setLayerPreference pinstdCell -isVisible 1
+<CMD> setLayerPreference pinio -isVisible 1
+<CMD> setLayerPreference piniopin -isVisible 1
+<CMD> setLayerPreference pinother -isVisible 1
+<CMD> setLayerPreference obsblock -isVisible 1
+<CMD> setLayerPreference obsstdCell -isVisible 1
+<CMD> setLayerPreference obsio -isVisible 1
+<CMD> setLayerPreference obsother -isVisible 1
+<CMD> setLayerPreference layoutObj -isVisible 1
+<CMD> fit
+**ERROR: (IMPSYT-6896):	Select at least one instance to rotate/flip
+
+**ERROR: (IMPSYT-6896):	Select at least one instance to rotate/flip
+
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+<CMD> getCTSMode -engine -quiet
+**INFO (INTERRUPT): One more Ctrl-C to exit Innovus ...
+Innovus terminated by user interrupt.
+
+*** Memory Usage v#1 (Current mem = 718.887M, initial mem = 166.582M) ***
+*** Message Summary: 8 warning(s), 2 error(s)
+
+--- Ending "Innovus" (totcpu=0:26:57, real=0:43:21, mem=718.9M) ---

@@ -1,0 +1,67 @@
+
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    13:56:58 07/10/2019 
+// Design Name: 
+// Module Name:    Accumulator
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module accumulator(
+    	output reg [31:0] out,
+    	input  [4:0] in,
+    	input  clk ,
+	input  en , 
+	input  reset
+    );
+
+wire [31:0] outwire;
+
+assign outwire = out;
+
+initial 
+begin 
+	out<=32'b0;
+end
+
+
+
+always @(posedge clk or posedge reset )
+	begin
+
+		if (reset == 1'b1)
+			out<=0;
+		else
+			if (en == 1'b1)
+				out <= outwire + in;
+			else 
+				out <= outwire;		
+	end
+endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

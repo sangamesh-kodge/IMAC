@@ -1,0 +1,156 @@
+Checking out license 'RTL_Compiler_Ultra'... (0 seconds elapsed)
+License 'RTL_Compiler_Ultra' (main version: 14.2, alternate version: 14.2) checkout failed.
+Checking out license 'Genus_Synthesis'... (0 seconds elapsed)
+Finished loading tool scripts (6 seconds elapsed)
+
+                       Cadence Encounter(R) RTL Compiler
+          Version RC14.28 - v14.20-s067_1 (64-bit), built Jun 22 2016
+
+
+Copyright notice: Copyright 1997-2015 Cadence Design Systems, Inc. All rights 
+reserved worldwide. 
+
+WARNING: This version of RC is 1113 days old.
+         Visit downloads.cadence.com for the latest release of RC.
+
+
+================================================================================
+                  Welcome to Cadence Encounter(R) RTL Compiler
+
+Here is a quick introduction on how to access our product information.  
+If you do not want this message to appear in the future, create an 
+initialization file (an empty file will do) in your home directory 
+called '~/.cadence/.synth_init'.
+
+  To access the product documentation in HTML and PDF, type 'cdnshelp'
+    at the system prompt. 
+  For a list of available commands, type 'help'. 
+  To view a man page for a command, type 'man <commandName>'.
+  To view a man page for an error message, type 'man <messageID>'.
+  For a list of all possible object types, type 'get_attribute -help'.
+  For a list of all available attributes by object type, type
+    'get_attribute * <object_type> -help'.
+  For a list of all attributes for every object type, type
+    'get_attribute * * -help'
+  To list only writable attributes, substitute 'get_attribute' with
+    'set_attribute'.
+  To get a template script to run RTL Compiler, use the 'write_template'
+    command.
+  To get a template script to run Conformal based on the current RTL
+    Compiler session, use the 'write_do_lec' command.
+  
+  Obsolete attributes in the current tool version.
+  To learn more, type 'get_attribute -help <attribute> <object>'.
+
+            object  attribute
+            ------  ---------
+       cpf_command  synthesize_complex_expressions
+    cpf_command_id  current_set_instance_macro
+    cpf_command_id  current_set_instance_module
+    cpf_command_id  done_in_apply_cpf
+    cpf_command_id  done_in_write_cpf
+    cpf_command_id  macro_definition_command
+    cpf_command_id  rc_command
+            design  base_mode
+            design  disable_power_mode_factorization
+            design  dp_perform_rewriting_operations
+            design  lp_clock_gating_hierarchical
+            design  lp_map_to_srpg_cells
+            design  lp_optimize_dynamic_power_first
+            design  lp_srpg_pg_driver
+          instance  black_box
+          instance  dft_inherited_dont_scan
+          instance  gint_has_connected_pg_pin
+          instance  lp_map_to_srpg_cells
+          instance  lp_map_to_srpg_type
+          instance  lp_srpg_pg_driver
+           libcell  black_box
+           libcell  location
+            libpin  q_pin_of_d_pin
+               net  hier_net
+               net  logic0_driven
+               net  logic1_driven
+      power_domain  library_domain_by_mode
+      power_domain  shutoff_signal
+      power_domain  shutoff_signal_polarity
+              root  auto_ungroup_min_effort
+              root  constant_prop_through_iso_cell
+              root  degenerate_complex_seqs
+              root  disable_power_mode
+              root  dp_perform_csa_operations
+              root  dp_perform_rewriting_operations
+              root  dp_perform_sharing_operations
+              root  dp_perform_speculation_operations
+              root  driver_for_unloaded_ports
+              root  enable_parallel_iopt
+              root  enc_in_place_opt
+              root  enc_opt_drv
+              root  hdl_flatten_array
+              root  hdl_old_reg_naming
+              root  hdl_reg_naming_style_scalar
+              root  hdl_reg_naming_style_vector
+              root  hdl_trim_target_index
+              root  hdl_use_params_in_cell_search
+              root  ignore_unknown_embedded_commands
+              root  lbr_async_clr_pre_seqs_interchangable
+              root  lp_clock_gating_hierarchical
+              root  lp_insert_clock_gating_incremental
+              root  lp_iopt_mvt_multipass_flow
+              root  lp_multi_vt_optimization_effort
+              root  ovf_mode
+              root  ovf_verification_directory
+              root  ple_parameter_source_priority
+              root  power_optimization_effort
+              root  pqos_virtual_buffer
+              root  retime_preserve_state_points
+              root  wlec_env_var
+              root  wlec_flat_r2n
+              root  wlec_no_exit
+              root  wlec_old_lp_ec_flow
+              root  wlec_save_ssion
+              root  wlec_sim_lib
+              root  wlec_sim_plus_lib
+              root  wlec_skip_iso_check_hier_compare
+              root  wlec_skip_lvl_check_hier_compare
+              root  wlec_verbose
+         subdesign  allow_csa_subdesign
+         subdesign  allow_sharing_subdesign
+         subdesign  allow_speculation_subdesign
+         subdesign  auto_ungroup_ok
+         subdesign  dp_perform_rewriting_operations
+         subdesign  lp_clock_gating_hierarchical
+
+Send us feedback at rc_feedback@cadence.com.
+================================================================================
+
+rc:/> run rtl.tcl
+Error   : A command argument did not match any of the acceptable command options. [TUI-64] [parse_options]
+        : The argument in question is 'rtl.tcl'.
+        : Check the command usage and correct the input to the command.
+  run_flow: run the flowkit 
+
+Usage: run_flow  [-from <string>] [-to <string>] [-step <string>]
+           [-flow <string>] [-directory <string>] [-no_check] [-no_summary]
+           [-reset]
+
+    [-from <string>]:
+        starting flow step. Default is to run from the start 
+    [-to <string>]:
+        ending flow step. Default is to run to completion 
+    [-step <string>]:
+        run just the specified step. This takes priority over from/to flags 
+    [-flow <string>]:
+        run the specified flow. From/to are based on the flow steps. Default is 
+        flow_step_order 
+    [-directory <string>]:
+        run in the specified directory. Default is the current working 
+        directory 
+    [-no_check]:
+        skip error checks. Default is to run them 
+    [-no_summary]:
+        skip summary. Default is to print a summary, and email if flow_mail_to 
+        is set 
+    [-reset]:
+        reset flow steps to "not_run" 
+Failed on 'run_flow'
+rc:/> 
