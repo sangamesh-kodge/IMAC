@@ -31,8 +31,8 @@ set_attribute lef_library {tcbn65lp_6lmT1.lef}
 set rda_Input(ui_pwrnet) {VDD}
 set rda_Input(ui_gndnet) {VSS}
 # Analyze and Elaborate the HDL files
-read_hdl accumulator.v 
-elaborate accumulator
+read_hdl register.v 
+elaborate register
 
 # Apply Constraints and generate clocks
 # set clock [define_clock -period ${myPeriod_ps} -name ${myClk} [clock_ports]]	
@@ -56,7 +56,7 @@ report power > power_report.rpt
 report timing > timing_report.rpt
 report clocks > clocks_report.rpt
 # Write out the structural Verilog and sdc files
-write -mapped >  accumulator_synth.v
+write -mapped >  register_synth.v
 write_sdc > constraints.sdc
 
 write_script >  script

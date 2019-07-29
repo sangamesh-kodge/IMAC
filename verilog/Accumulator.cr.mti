@@ -1,0 +1,29 @@
+/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/adder.v {1 {vlog -stats=none -work work -vopt /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/adder.v
+QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
+-- Compiling module adder
+
+Top level modules:
+	adder
+
+} {} {}} /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v {1 {vlog -stats=none -work work -vopt /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v
+QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
+-- Compiling module testbench
+
+Top level modules:
+	testbench
+
+} {} {}} /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/accumulator.v {1 {vlog -stats=none -work work -vopt /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/accumulator.v
+QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
+-- Compiling module accumulator
+
+Top level modules:
+	accumulator
+
+} {} {}} /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/register.v {1 {vlog -stats=none -work work -vopt /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/register.v
+QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
+-- Compiling module adder
+
+Top level modules:
+	adder
+
+} {} {}}

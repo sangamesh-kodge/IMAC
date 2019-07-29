@@ -1,8 +1,0 @@
-/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v {1 {vlog -stats=none -work work -vopt /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v
-QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
--- Compiling module testbench
-
-Top level modules:
-	testbench
-
-} {} {}}

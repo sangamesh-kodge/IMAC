@@ -1,12 +1,12 @@
 ######################################################################
 
-# Created by Encounter(R) RTL Compiler RC14.28 - v14.20-s067_1 on Sun Jul 14 16:44:16 -0400 2019
+# Created by Encounter(R) RTL Compiler RC14.28 - v14.20-s067_1 on Mon Jul 29 00:09:08 -0400 2019
 
-# This file contains the RC script for /designs/accumulator
+# This file contains the RC script for /designs/register
 
 ######################################################################
 
-set_attribute -quiet runtime_by_stage { {global_incr_map 0 25 0 20}  {incr_opt 0 25 0 20} } /
+set_attribute -quiet runtime_by_stage { {global_incr_map 0 140 0 36}  {incr_opt 0 140 0 36} } /
 set_attribute -quiet gui_auto_update false /
 set_attribute -quiet lib_search_path /home/nano01/a/agrawa64/mosis_65nm/mosis_65nm/IP_LIB/TSMCHOME/digital/Back_End/lef/tcbn65lp_200a/lef /
 set_attribute -quiet use_area_from_lef true /
@@ -24,6 +24,6 @@ set_attribute -quiet tree_type balanced_tree /libraries/tcbn65lpbc_ecsm/operatin
 set_attribute -quiet dft_scan_style muxed_scan /
 set_attribute -quiet dft_scanbit_waveform_analysis false /
 # END DFT SECTION
-set_attribute -quiet hdl_filelist {{default -v2001 {SYNTHESIS} {accumulator.v} {}}} /designs/accumulator
-set_attribute -quiet hdl_user_name accumulator /designs/accumulator
-set_attribute -quiet rc_current_verification_directory fv/accumulator /designs/accumulator
+set_attribute -quiet hdl_filelist {{default -v2001 {SYNTHESIS} {register.v} {}}} /designs/register
+set_attribute -quiet hdl_user_name register /designs/register
+set_attribute -quiet rc_current_verification_directory fv/register /designs/register

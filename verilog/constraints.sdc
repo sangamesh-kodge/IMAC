@@ -1,6 +1,6 @@
 # ####################################################################
 
-#  Created by Encounter(R) RTL Compiler RC14.28 - v14.20-s067_1 on Sun Jul 14 16:44:16 -0400 2019
+#  Created by Encounter(R) RTL Compiler RC14.28 - v14.20-s067_1 on Mon Jul 29 00:09:08 -0400 2019
 
 # ####################################################################
 
@@ -10,7 +10,7 @@ set_units -capacitance 1000.0fF
 set_units -time 1000.0ps
 
 # Set the current design
-current_design accumulator
+current_design register
 
 set_clock_gating_check -setup 0.0 
 set_wire_load_selection_group "WireAreaForZero" -library "tcbn65lpbc_ecsm"

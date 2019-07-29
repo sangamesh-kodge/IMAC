@@ -18,40 +18,62 @@ n@_opt
 OL;O;10.3b;59
 R0
 vaccumulator
-Z1 V`JN@9S9cnhjKRR_L]QIcM3
-r1
-!s85 0
-31
+Z1 !s110 1564373002
 !i10b 1
-!s100 X5:0<DRD8dITmaF44ZbBd0
-IEooL0TfPj6R]_1gG`UZ_F1
+!s100 5V>:z68E7Yl0f4e<VKL8E1
+I[LB[C5YAOCP4lYmb5LVHZ2
+Z2 V`JN@9S9cnhjKRR_L]QIcM3
 R0
-w1563058715
+w1563137010
 8/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/accumulator.v
 F/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/accumulator.v
 L0 21
-Z2 OL;L;10.3b;59
-!s108 1563059307.459826
-!s107 /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/accumulator.v|
-!s90 -reportprogress|300|-stats=none|-work|work|-vopt|/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/accumulator.v|
-!i113 0
-Z3 o-work work -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
-vtestbench
-R1
+Z3 OL;L;10.3b;59
 r1
 !s85 0
 31
+!s108 1564373002.200722
+!s107 /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/accumulator.v|
+!s90 -reportprogress|300|-stats=none|-work|work|-vopt|/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/accumulator.v|
+!i113 0
+Z4 o-work work -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+vadder
+R1
+!i10b 1
+!s100 aR0_ZD0fciSEVUz2gX42:3
+IAIm[jB69:mgNAmIg[WH]e0
+R2
+R0
+w1564372994
+8/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/register.v
+F/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/register.v
+L0 22
+R3
+r1
+!s85 0
+31
+!s108 1564373002.350572
+!s107 /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/register.v|
+!s90 -reportprogress|300|-stats=none|-work|work|-vopt|/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/register.v|
+!i113 0
+R4
+vtestbench
+R1
 !i10b 1
 !s100 51cBz^n@X;QGXZ=Dj7@GN1
 I0j^WWhRETTVnAcbKnE9hg1
+R2
 R0
 w1563059289
 8/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v
 F/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v
 L0 3
-R2
-!s108 1563059307.627333
+R3
+r1
+!s85 0
+31
+!s108 1564373002.251375
 !s107 /home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v|
 !s90 -reportprogress|300|-stats=none|-work|work|-vopt|/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Accumulator/testbench.v|
 !i113 0
-R3
+R4

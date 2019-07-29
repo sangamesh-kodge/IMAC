@@ -1,0 +1,28 @@
+# //  Questa Sim-64
+# //  Version 10.3b linux_x86_64 May 29 2014
+# //
+# //  Copyright 1991-2014 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading project Accumulator
+# Compile of accumulator.v was successful.
+# Compile of testbench.v was successful.
+# Compile of adder.v was successful.
+# 3 compiles, 0 failed with no errors.
+# Compile of accumulator.v was successful.
+# Compile of testbench.v was successful.
+# Compile of adder.v was successful.
+# Compile of register.v failed with 1 errors.
+# 4 compiles, 1 failed with 1 error.
+clear
+# [H[2J
+# Compile of accumulator.v was successful.
+# Compile of testbench.v was successful.
+# Compile of adder.v was successful.
+# Compile of register.v was successful.
+# 4 compiles, 0 failed with no errors.
+# Window cannot be closed because the modal window "Quit Vsim" is still open.
