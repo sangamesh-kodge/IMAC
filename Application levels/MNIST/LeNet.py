@@ -12,15 +12,23 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import math
+import numpy as np
+import pandas as pd
+
 #import sys
         
+    
 
 class lenet(nn.Module):
-    def __init__(self,input_size, bit_W, bit_A, sigma, n_classes=10, **kwargs):
+    def __init__(self,input_size, minacc=0.12,maxacc=0.45,bit_W=4, bit_A=4, sigma=0.0, n_classes=10, **kwargs):
         self.bit_A=bit_A
         self.bit_W=bit_W
         self.sigma=sigma
-        self.error_initialiser()        
+        self.minacc = minacc
+        self.maxacc = maxacc 
+        self.input_size=input_size
+        self.n_classes=n_classes
+        
         
         super(lenet, self).__init__()
         self.conv1 = nn.Conv2d(input_size, 6, kernel_size=5, padding=2, bias=True)
@@ -30,8 +38,10 @@ class lenet(nn.Module):
         self.linear1 =nn.Linear(400,120,bias=True)
         self.linear2 =nn.Linear(120,84,bias=True)
         self.classifier = nn.Linear(84, n_classes, bias=True)
-
-
+      
+        
+        
+        
     def forward(self, x):
         #print (x.shape)
         x = F.relu(self.conv1(x))
@@ -51,113 +61,131 @@ class lenet(nn.Module):
         x = self.classifier(x)
         return x
     
-
-    
-    def Inference(self, x, do_quantise=True, do_add_error=True, mode=False):
+    def quantise(self, x, k, do_quantise=False):
+        Max=torch.max(x)
+        if( not do_quantise):
+            Digital=x
+            return Digital
+        Digital=torch.round(((2**k)-1)*x/Max)
         
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.conv1(x), x.size()[1], self.error_conv1, k=5, st=1, p=2, bit_out=5, mode=mode, do_add_error=do_add_error)
+        #output=Min+(Max-Min)*Digital/((2**k)-1)
+        return Digital
+    
+    def inference(self, x,do_quantise = True):
+        #layer 1
+        x = self.myconv(inp=x, w=self.conv1.weight.data, input_channels=self.input_size, output_channels=6, kernel_size=5, padding=2)
+        
         x = F.relu(x)
         x = self.maxpool1(x)
+        #layer 2
+        x,d = self.quantise(x,self.bit_A, do_quantise)
+        x = self.myconv(inp=x,digital=d,weight=self.conv2.weight.data,input_channels=6,output_channels=16, kernel_size=5, padding=0, bias=self.conv2.bias.data)
         
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.conv2(x), x.size()[1], self.error_conv2, k=5, st=1, p=0, bit_out=5, mode=mode, do_add_error=do_add_error)
         x = F.relu(x)
         x = self.maxpool2(x)
-        
+        """
+        #Flatten
         x = x.view(x.size(0), -1)
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.linear1(x), x.size()[1], self.error_linear1, k=1, st=1, p=1, bit_out=5, mode=mode, do_add_error=do_add_error)
+        #layer 3
+        x,d = self.quantise(x,self.bit_A, do_quantise)
+        x = self.mylinear(inp=x,digital=d,weight=self.linear1.weight.data,input_channels=400,output_channels=120, bias=self.linear1.bias.data)
         x = F.relu(x)
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.linear2(x), x.size()[1], self.error_linear2, k=1, st=1, p=1, bit_out=5, mode=mode, do_add_error=do_add_error)
+        #layer 4
+        x,d = self.quantise(x,self.bit_A, do_quantise)
+        x = self.mylinear(inp=x,digital=d,weight=self.linear2.weight.data,input_channels=84,output_channels=self.out, bias=self.linear2.bias.data)
         x = F.relu(x)
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.classifier(x), x.size()[1], self.error_classifier, k=1, st=1, p=1, bit_out=5, mode=mode, do_add_error=do_add_error)
-        #x = self.classifier(x)
-        return x  
+        #layer 5
+        x,d = self.quantise(x,self.bit_A, do_quantise)
+        x = self.mylinear(inp=x,digital=d,weight=self.classifier.weight.data,input_channels=120,output_channels=self.n_classes, bias=self.classifier.bias.data)
+        """
+        return (x)
+             
     
     
-    def quantise(self, x, k, do_quantise=False):
-        if( not do_quantise):
-            output=x        
-        Min=torch.min(x)
-        Max=torch.max(x)
-        output=torch.round(((2**k)-1)*(x- Min)/(Max-Min))
-        output=Min+(Max-Min)*output/((2**k)-1)
-        return output
+    def myconv(self,x,w,input_channels,output_channels,kernel_size,padding):
+        #non_linearity matrix read from the file
+        mult = pd.read_csv('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/nominal.csv',header=None)
+        mult = torch.tensor(mult.values)
+        #storing min and max result for scaling at the end 
+        macmin = torch.max(self.conv1(x))
+        macmax = torch.min(self.conv1(x))
+        
+        # padding
+        p = torch.nn.ConstantPad2d((padding,padding,padding,padding),0)
+        x = p(x)
+        
+        # define output map
+        s = [x.size()[0],x.size()[1],x.size()[2],x.size()[3]]
+        Nmovx=s[3]-kernel_size+1
+        Nmovy=s[2]-kernel_size+1
+        activation_vector=torch.zeros(s[0],output_channels,Nmovy,Nmovx)
+        
+        # flatten weight
+        w = w.view(w.size()[0],-1)
+         
+        # separating positive form negative 
+        xp = torch.zeros(x.size()).cuda()
+        xn = torch.zeros(x.size()).cuda()
+        xp = torch.where(x>0,x,xp)
+        xn = torch.where(x<0,-x,xn)
+        xdp =self.quantise(xp,self.bit_A,do_quantise=True)
+        xdn =self.quantise(xn,self.bit_A,do_quantise=True)
+        wp = torch.zeros(w.size()).cuda()
+        wn = torch.zeros(w.size()).cuda()
+        wp = torch.where(w>0,w,wp)
+        wn = torch.where(w<0,-w,wn)
+        wdp =self.quantise(wp,self.bit_W,do_quantise=True)
+        wdn =self.quantise(wn,self.bit_W,do_quantise=True)
+        
+        for i in range (Nmovy):
+            for j in range(Nmovx):
+                # slice actiation and flatten
+                adp = xdp[:,:,i:i+kernel_size,j:j+kernel_size].contiguous().view(x.size(0),-1)
+                adn = xdn[:,:,i:i+kernel_size,j:j+kernel_size].contiguous().view(x.size(0),-1)
+                k = 0
+                maxk = adp.size()[1]
+                while ((maxk+1-k !=0 and (maxk+1)%25==0) or((maxk-k>25 and (maxk+1)%25!=0))):
+                    for batch in range(s[0]):
+                        for o_c in range(output_channels):
+                            #accumulation without proper scaling
+                            virtual_acc25p=torch.sum(mult[wdp[o_c,k:k+25],adp[batch,k:k+25]]).view(-1) + torch.sum(mult[wdn[o_c,k:k+25],adn[batch,k:k+25]]).view(-1)      
+                            virtual_acc25n=torch.sum(mult[wdn[o_c,k:k+25],adp[batch,k:k+25]]).view(-1) + torch.sum(mult[wdp[o_c,k:k+25],adn[batch,k:k+25]]).view(-1)      
+                            # scaling the result of accumulation
+                            acc25p = (self.maxacc-self.minacc)*(virtual_acc25p-25*mult.min())/(25*mult.max()-25*mult.min())+self.minacc
+                            acc25n = (self.maxacc-self.minacc)*(virtual_acc25n-25*mult.min())/(25*mult.max()-25*mult.min())+self.minacc
+                            # digital output
+                            digital_outp = torch.round((acc25p-self.minacc)*(2**4-1) /(self.maxacc-self.minacc))
+                            digital_outn = torch.round((acc25n-self.minacc)*(2**4-1) /(self.maxacc-self.minacc))
+                            # accumulating the 25 vector mac
+                            activation_vector[batch,o_c,i,j] = activation_vector[batch,o_c,i,j] +(digital_outp-digital_outn)
+                            k=k+25
+                for batch in range(s[0]):
+                    for o_c in range(output_channels):
+                        #accumulation without proper scaling
+                        virtual_acc25p=torch.sum(mult[wdp[o_c,k:maxk],adp[batch,k:maxk]]).view(-1) + torch.sum(mult[wdn[o_c,k:maxk],adn[batch,k:maxk]]).view(-1)      
+                        virtual_acc25n=torch.sum(mult[wdn[o_c,k:maxk],adp[batch,k:maxk]]).view(-1) + torch.sum(mult[wdp[o_c,k:maxk],adn[batch,k:maxk]]).view(-1)      
+                        # scaling the result of accumulation
+                        acc25p = (self.maxacc-self.minacc)*(virtual_acc25p-(maxk-k)*mult.min())/(25*mult.max()-25*mult.min())+self.minacc
+                        acc25n = (self.maxacc-self.minacc)*(virtual_acc25n-(maxk-k)*mult.min())/(25*mult.max()-25*mult.min())+self.minacc
+                        # digital output
+                        digital_outp = torch.round((acc25p-self.minacc)*(2**4-1) /(self.maxacc-self.minacc))
+                        digital_outn = torch.round((acc25n-self.minacc)*(2**4-1) /(self.maxacc-self.minacc))
+                        # accumulating the 25 vector mac
+                        activation_vector[batch,o_c,i,j] = activation_vector[batch,o_c,i,j] +(digital_outp-digital_outn)
+        activation_vector = (activation_vector-activation_vector.min())*(macmax-macmin)/((activation_vector.max()-activation_vector.min()))+macmin
+        return activation_vector
+    
+                                    
                 
-    
-    def AddError(self, x, inp_channels=0, error_table=0, k=5, st=1, p=0, bit_out=5, mode=True, do_add_error=True):
-        if (not do_add_error):
-            return x
-        noofterms = inp_channels*k*k
-        levels = noofterms*(2**bit_out-1)
-        Min=x.min()
-        Max=x.max()
-        if(mode): 
-            outp = torch.zeros(x.size()).cuda()
-            outn = torch.zeros(x.size()).cuda()
-            error_out = torch.round(error_table)
-            outp = torch.round(torch.where(x>0,x,outp)*levels/Max)
-            outn = torch.round(torch.where(x<0,x,outn)*levels/Min)
-            out= (outp+outn)+error_out
-            outp=torch.zeros(x.size()).cuda()
-            outn=torch.zeros(x.size()).cuda()
-            outp=torch.clamp(torch.where(x>0,out,outp),0,levels)*Max/levels
-            outn=torch.clamp(torch.where(x<0,out,outn),0,-levels)*Min/levels
-            out1=outp+outn
-        else: 
-            if(k>1):
-                outp=torch.zeros(x.size()).cuda()
-                outn=torch.zeros(x.size()).cuda()
-                n=torch.distributions.normal.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(noofterms)]))
-                error_out = n.sample((x.size()[0],x.size()[1],x.size()[2],x.size()[3],)).view(x.size()[0],x.size()[1],x.size()[2],x.size()[3]).cuda()
-                outp=torch.round(torch.where(x>0,x,outp)*levels/Max)
-                outn=torch.round(torch.where(x<0,x,outn)*levels/Min)
-                out= (outp+outn)+error_out
-                outp=torch.zeros(x.size()).cuda()
-                outn=torch.zeros(x.size()).cuda()
-                outp=torch.clamp(torch.where(x>0,out,outp),0,levels)*Max/levels
-                outn=torch.clamp(torch.where(x<0,out,outn),0,-levels)*Min/levels
-                out1=outp+outn
-            else:
-                outp=torch.zeros(x.size()).cuda()
-                outn=torch.zeros(x.size()).cuda()
-                n=torch.distributions.normal.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(noofterms)]))
-                error_out = n.sample((x.size()[0],x.size()[1],)).view(x.size()[0],x.size()[1]).cuda()
-                outp=torch.round(torch.where(x>0,x,outp)*levels/Max)
-                outn=torch.round(torch.where(x<0,x,outn)*levels/Min)
-                out= (outp+outn)+error_out
-                outp=torch.zeros(x.size()).cuda()
-                outn=torch.zeros(x.size()).cuda()
-                outp=torch.clamp(torch.where(x>0,out,outp),0,levels)*Max/levels
-                outn=torch.clamp(torch.where(x<0,out,outn),0,-levels)*Min/levels
-                out1=outp+outn
-        return out1
-        
-    
-    def quantise_weigths(self,do_quantise=True):
-        self.conv1.weight.data = self.quantise(self.conv1.weight.data,self.bit_W,do_quantise=do_quantise)
-        self.conv2.weight.data = self.quantise(self.conv2.weight.data,self.bit_W,do_quantise=do_quantise)
-        self.linear1.weight.data = self.quantise(self.linear1.weight.data,self.bit_W,do_quantise=do_quantise)
-        self.linear2.weight.data = self.quantise(self.linear2.weight.data,self.bit_W,do_quantise=do_quantise)
-        self.classifier.weight.data = self.quantise(self.classifier.weight.data,self.bit_W,do_quantise=do_quantise)
-        
-    def error_initialiser(self) :
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(1*5*5)]))
-        self.error_conv1=n.sample((6,28,28,)).view(6,28,28).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(6*5*5)]))
-        self.error_conv2=n.sample((16,10,10,)).view(16,10,10).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(120)]))
-        self.error_linear1=n.sample((120,)).view(120).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(84)]))
-        self.error_linear2=n.sample((84,)).view(84).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(10)]))
-        self.error_classifier=n.sample((10,)).view(10).cuda()
-        
 
- 
+                
+                
+        
+        
+        
+        
+        
+        
+        
+    
+                
