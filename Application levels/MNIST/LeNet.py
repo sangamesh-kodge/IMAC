@@ -73,16 +73,17 @@ class lenet(nn.Module):
     
     def inference(self, x,do_quantise = True):
         #layer 1
-        x = self.myconv(inp=x, w=self.conv1.weight.data, input_channels=self.input_size, output_channels=6, kernel_size=5, padding=2)
-        
+        x = self.myconv(x=x, w=self.conv1.weight.data, input_channels=self.input_size, output_channels=6, kernel_size=5, padding=2, b=self.conv1.bias.data)
         x = F.relu(x)
         x = self.maxpool1(x)
         #layer 2
-        x,d = self.quantise(x,self.bit_A, do_quantise)
-        x = self.myconv(inp=x,digital=d,weight=self.conv2.weight.data,input_channels=6,output_channels=16, kernel_size=5, padding=0, bias=self.conv2.bias.data)
+        x = F.relu(self.conv2(x))
+        x = self.maxpool2(x)        
         
-        x = F.relu(x)
-        x = self.maxpool2(x)
+        x = x.view(x.size(0), -1)
+        x = F.relu(self.linear1(x))
+        x = F.relu(self.linear2(x))
+        x = self.classifier(x)
         """
         #Flatten
         x = x.view(x.size(0), -1)
@@ -102,13 +103,13 @@ class lenet(nn.Module):
              
     
     
-    def myconv(self,x,w,input_channels,output_channels,kernel_size,padding):
+    def myconv(self,x,w,input_channels,output_channels,kernel_size,padding,stride=1,b=0):
         #non_linearity matrix read from the file
         mult = pd.read_csv('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/nominal.csv',header=None)
         mult = torch.tensor(mult.values)
         #storing min and max result for scaling at the end 
-        macmin = torch.max(self.conv1(x))
-        macmax = torch.min(self.conv1(x))
+        macmin = torch.max(F.conv2d(x,w,bias=None,stride=stride,padding=padding))
+        macmax = torch.min(F.conv2d(x,w,bias=None,stride=stride,padding=padding))
         
         # padding
         p = torch.nn.ConstantPad2d((padding,padding,padding,padding),0)
@@ -173,6 +174,8 @@ class lenet(nn.Module):
                         # accumulating the 25 vector mac
                         activation_vector[batch,o_c,i,j] = activation_vector[batch,o_c,i,j] +(digital_outp-digital_outn)
         activation_vector = (activation_vector-activation_vector.min())*(macmax-macmin)/((activation_vector.max()-activation_vector.min()))+macmin
+        for i in range (b):
+            activation_vector = activation_vector + b[i]
         return activation_vector
     
                                     

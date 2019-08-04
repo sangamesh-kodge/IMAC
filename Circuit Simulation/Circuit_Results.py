@@ -54,6 +54,7 @@ line = slope*W+intercept
 plt.plot(W,line,c='orange')
 plt.scatter(W,y_bl[3,:].T,marker="o",c='orange')
 plt.legend(('W=0','W=5','W=10','W=15'))
+plt.title("Output with Vin sweep")
 plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/OutVsVin.png')
 
 matplotlib.rcParams.update({'font.size': 20})
@@ -78,6 +79,7 @@ line = slope*W+intercept
 plt.plot(W,line,c='orange')
 plt.scatter(W,y_bl[3,:].T,marker="o",c='orange')
 plt.legend(('Vin=0','Vin=5','Vin=10','Vin=15'))
+plt.title("Output with W sweep")
 plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/OutVsW.png')
 
 matplotlib.rcParams.update({'font.size': 20})
