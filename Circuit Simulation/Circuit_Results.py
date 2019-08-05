@@ -35,7 +35,7 @@ multV=np.array(mult.T[[0,5,10,15]][:])
 matplotlib.rcParams.update({'font.size': 20})
 plt.figure(figsize=(10,5))
 y_bl=multW
-plt.ylabel('Digital Output')
+plt.ylabel('Analog Output')
 plt.xlabel('Vin')
 slope, intercept, r_value, p_value, std_err = stats.linregress(W,y_bl[0,:])
 line = slope*W+intercept
@@ -60,7 +60,7 @@ plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Si
 matplotlib.rcParams.update({'font.size': 20})
 plt.figure(figsize=(10,5))
 y_bl=multV
-plt.ylabel('Digital Output')
+plt.ylabel('Analog Output')
 plt.xlabel('W')
 slope, intercept, r_value, p_value, std_err = stats.linregress(W,y_bl[0,:])
 line = slope*W+intercept
