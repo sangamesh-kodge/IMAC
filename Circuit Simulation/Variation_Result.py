@@ -68,7 +68,7 @@ plt.xlabel('analog product')
 plt.ylabel('Probability density')
 plt.title('Variation Results')
 plt.legend()
-plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/variation_analog_mult_pdf.png')
+plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/variation_analog_mult_pdf.png',bbox_inches='tight')
 plt.show()
 
 
@@ -86,7 +86,7 @@ plt.scatter (m,s,c='red',marker='x')
 plt.xlabel('mean')
 plt.ylabel('Sigma')
 plt.title('Variation Results')
-plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/variation_analog_mult_mean_sigma.png')
+plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/variation_analog_mult_mean_sigma.png',bbox_inches='tight')
 plt.show()
 
 
@@ -102,9 +102,10 @@ plt.hist(c, bins=[8.5,9.5,10.5,11.5,12.5,13.5],edgecolor='black', linewidth=1.2,
 plt.hist(d, bins=[12.5,13.5,14.5,15.5],edgecolor='black', linewidth=1.2,color='lightgreen',label ="Nominal=15")
 plt.xlabel("MAC Output")
 plt.ylabel("# of Occurrences")
-plt.title("1000 runs of MC")
-plt.legend()
-plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/MC.png')
+plt.title("1000 runs of MC",y=1.18)
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.18),
+          ncol=4, fancybox=True, shadow=True)
+plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/Circuit Simulation/MC.png',bbox_inches='tight')
 plt.show()
 
 

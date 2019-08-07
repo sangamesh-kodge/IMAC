@@ -7,21 +7,32 @@ Created on Thu Aug  1 03:02:30 2019
 """
 
 import numpy as np
-
-a=np.array([[4043.71875	,153660,	3936.84375,	29400,	689.0625	, 43417.92],
-[8416.071429, 	324480,	8034.375,	60000	,1406.25	,88608],
-[5395.714286,	312000	,1606.875,	196320,	281.25,	17721.6],
-[1133.1,	65520,	337.44375,	41227.2,	59.1796875,	3721.536],
-[94.425,	5460,	28.1203125,	3435.6,	4.98046875,	310.128]])
-a=a.T
-
-
-
-import numpy as np
 import matplotlib.pyplot as plt
 
+def autolabel(rects):
+    """
+    Attach a text label above each bar displaying its height
+    """
+    for rect in rects:
+        height = rect.get_height()
+        ax.text(rect.get_x() + rect.get_width()/2., 1.05*height,
+                '%d' % int(height),
+                ha='center', va='bottom')
+        
+a=np.array([[2763,		125436,	3936.84375,	29409.44843,	689.0625,	40890.696],
+[6685.714286,	266880,	8034.375,	60019.2825,	1406.25,	83450.4],
+[25097.14286,	484800,	2250,		219845.4,	281.25,		16690.08],
+[5270.4, 	    101808,	472.5,		46167.534,	59.1796875,	3504.9168],
+[439.2,		    8484,	39.375,		3847.2945,	4.98046875,	292.0764],
+[40255.45714,	987408,	14733.09375,	359288.9594,	2440.722656,	144828.1692]])
+
+a=a.T/1000
+
+
+
+
 # data to plot
-n_groups = 5
+n_groups = 6
 
 tvn=a[0]/a[0]
 tdima=a[2]/a[0]
@@ -30,6 +41,7 @@ tinmemory=a[4]/a[0]
 # create plot
 matplotlib.rcParams.update({'font.size': 20})
 plt.figure(figsize=(10,5))
+
 index = np.arange(n_groups)
 bar_width = 0.3
 opacity = 1.0
@@ -51,17 +63,19 @@ label='This Work')
 
 plt.xlabel('Layers')
 plt.ylabel('Normalised Delay')
-plt.title('Delay Comparisons Normalised')
-plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3'))
-plt.legend()
-plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Delay_norm.png')
+plt.title('Normalised Delay Comparisons',y=1.18)
+plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3','Total'))
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.18),
+          ncol=3, fancybox=True, shadow=True)
+plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Delay_norm.png',bbox_inches='tight')
 plt.show()
-
+autolabel(rects1)
 
 
 tvn=a[0]
 tdima=a[2]
 tinmemory=a[4]
+
 # create plot
 matplotlib.rcParams.update({'font.size': 20})
 plt.figure(figsize=(10,5))
@@ -81,11 +95,12 @@ alpha=opacity,
 color='brown',
 label='This Work')
 plt.xlabel('Layers')
-plt.ylabel('Delay per decision')
-plt.title('Delay Comparisons')
-plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3'))
-plt.legend()
-plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Delay.png')
+plt.ylabel('Delay( us ) / decision')
+plt.title('Delay Comparisons',y=1.18)
+plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3','Total'))
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.18),
+          ncol=3, fancybox=True, shadow=True)
+plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Delay.png',bbox_inches='tight')
 plt.show()
 
 
@@ -118,10 +133,11 @@ label='This Work')
 
 plt.xlabel('Layers')
 plt.ylabel('Normalised Energy ')
-plt.title('Energy Comparisons Normalised')
-plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3'))
-plt.legend()
-plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Energy_norm.png')
+plt.title('Normalised Energy Comparisons',y=1.18)
+plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3','Total'))
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.18),
+          ncol=3, fancybox=True, shadow=True)
+plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Energy_norm.png',bbox_inches='tight')
 plt.show()
 
 evn=a[1]
@@ -149,11 +165,12 @@ color='brown',
 label='This Work')
 
 plt.xlabel('Layers')
-plt.ylabel('Energy per decision')
-plt.title('Energy Comparisons')
-plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3'))
-plt.legend()
-plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Energy.png')
+plt.ylabel('Energy( nJ )/decision')
+plt.title('Energy Comparisons',y=1.18)
+plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3','Total'))
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.18),
+          ncol=3, fancybox=True, shadow=True)
+plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Energy.png',bbox_inches='tight')
 plt.show()
 
 
@@ -182,17 +199,18 @@ color='brown',
 label='This Work')
 
 plt.xlabel('Layers')
-plt.ylabel('Normalised Energy*delay per decision')
-plt.title('Energy*delay Comparisons Normalised')
-plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3'))
-plt.legend()
-plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Energy_delay_norm.png')
+plt.ylabel('Normalised EDP/decision')
+plt.title('Normalised EDP Comparisons',y=1.18)
+plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3','Total'))
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.18),
+          ncol=3, fancybox=True, shadow=True)
+plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Energy_delay_norm.png',bbox_inches='tight')
 plt.show()
 
 
-edvn=a[1]*a[0]
-eddima=a[3]*a[2]
-edinmemory=a[5]*a[4]
+edvn=a[1]*a[0]/1000
+eddima=a[3]*a[2]/1000
+edinmemory=a[5]*a[4]/1000
 matplotlib.rcParams.update({'font.size': 20})
 plt.figure(figsize=(10,5))
 index = np.arange(n_groups)
@@ -215,9 +233,10 @@ color='brown',
 label='This Work')
 
 plt.xlabel('Layers')
-plt.ylabel('Energy*delay per decision')
-plt.title('Energy*delay Comparisons')
-plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3'))
-plt.legend()
-plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Energy_delay.png')
+plt.ylabel('EDP( p Js )/decision')
+plt.title('EDP Comparisons',y=1.18)
+plt.xticks(index + bar_width, ('C1', 'C2', 'FC1', 'FC2','FC3','Total'))
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.18),
+          ncol=3, fancybox=True, shadow=True)
+plt.savefig('/home/min/a/skodge/Project/GitHub/6T-SRAM-Multiplication/System/Energy_delay.png',bbox_inches='tight')
 plt.show()

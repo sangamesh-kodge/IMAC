@@ -80,7 +80,8 @@ def test(epoch, best_loss, best_epoch, best_correct, do_quantise,do_add_error,mo
         if cuda:
             data, target = data.cuda(), target.cuda()
         data, target = Variable(data), Variable(target)
-        output = model.inference(data, do_quantise=do_quantise)
+        #output = model.inference(data, do_quantise=do_quantise)
+        output = model(data)
         # sum up batch loss
         test_loss += criterion(output, target).data.item()
         # get the index of the max log-probability
