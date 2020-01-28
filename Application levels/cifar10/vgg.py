@@ -13,11 +13,18 @@ import math
         
 
 class vgg(nn.Module):
-    def __init__(self,input_size, bit_W, bit_A, sigma, n_classes=10, **kwargs):
+    def __init__(self,input_size,bit_W=4, bit_A=4, sigma=0.0, n_classes=10, **kwargs):
         self.bit_A=bit_A
         self.bit_W=bit_W
         self.sigma=sigma
-        self.error_initialiser()        
+        self.bit_out=4
+        self.noofacc=10
+        
+        self.input_size=input_size
+        self.n_classes=n_classes
+        self.quantise_weight_flag= False
+        self.error_initialiser() 
+        self.input_size=input_size    
         
         super(vgg, self).__init__()
         self.conv1 = nn.Conv2d(input_size, 64, kernel_size=3, padding=1, bias=True)
@@ -38,141 +45,119 @@ class vgg(nn.Module):
         self.classifier = nn.Linear(4096, n_classes, bias=True)
 
 
-    def forward(self, x):
+    def forward(self, x, training= True):
         x = F.relu(self.conv1(x))
-        x = F.dropout(x,.3)  
+        if (training):
+            x = F.dropout(x,.3)  
         x = F.relu(self.conv2(x))
         x = self.maxpool1(x)
 
         x = F.relu(self.conv3(x))
-        x = F.dropout(x,.4)  
+        if (training):
+            x = F.dropout(x,.4)  
         x = F.relu(self.conv4(x))
         x = self.maxpool2(x)        
 
         x = F.relu(self.conv5(x))
-        x = F.dropout(x,.4)  
+        if (training):
+            x = F.dropout(x,.4)  
         x = F.relu(self.conv6(x))
-        x = F.dropout(x,.4)  
+        if (training):
+            x = F.dropout(x,.4)  
         x = F.relu(self.conv7(x))
         x = self.maxpool3(x)
         x = x.view(x.size(0), -1)
         x = F.relu(self.linear1(x))
-        x = F.dropout(x,.5)    
+        if (training):
+            x = F.dropout(x,.5)    
         x = F.relu(self.linear2(x))
-        x = F.dropout(x,.5)    
+        if (training):
+            x = F.dropout(x,.5)    
         x = self.classifier(x)
         return x
     
-
-    
-    def Inference(self, x, do_quantise=True, do_add_error=True, mode=False):
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.conv1(x), x.size()[1], self.error_conv1, k=3, st=1, p=1, bit_out=5, mode=mode, do_add_error=do_add_error)
-        x = F.relu(x)
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.conv2(x), x.size()[1], self.error_conv2, k=3, st=1, p=1, bit_out=5, mode=mode, do_add_error=do_add_error)
-        x = F.relu(x)
-        x = self.maxpool1(x)
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.conv3(x), x.size()[1], self.error_conv3, k=3, st=2, p=1,bit_out=5, mode=mode, do_add_error=do_add_error)
-        x = F.relu(x)
-       
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.conv4(x), x.size()[1], self.error_conv4, k=3, st=1, p=1,bit_out=5, mode=mode, do_add_error=do_add_error)
-        x = F.relu(x)
-        x = self.maxpool2(x)
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.conv5(x), x.size()[1], self.error_conv5, k=3, st=1, p=1,bit_out=5, mode=mode, do_add_error=do_add_error)
-        x = F.relu(x)
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.conv6(x), x.size()[1], self.error_conv6, k=3, st=2, p=1,bit_out=5, mode=mode, do_add_error=do_add_error)
-        x = F.relu(x)
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.conv7(x), x.size()[1], self.error_conv7, k=3, st=1, p=1, bit_out=5, mode=mode, do_add_error=do_add_error)
-        x = F.relu(x)
-        x = self.maxpool3(x)
-        
-        x = x.view(x.size(0), -1)
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.linear1(x), x.size()[1], self.error_linear1, k=1, st=1, p=1, bit_out=5, mode=mode, do_add_error=do_add_error)
-        x = F.relu(x)
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.linear2(x), x.size()[1], self.error_linear2, k=1, st=1, p=1, bit_out=5, mode=mode, do_add_error=do_add_error)
-        x = F.relu(x)
-        
-        x = self.quantise(x,self.bit_A,do_quantise=do_quantise)
-        x = self.AddError( self.classifier(x), x.size()[1], self.error_classifier, k=1, st=1, p=1, bit_out=5, mode=mode, do_add_error=do_add_error)
-        #x = self.classifier(x)
-        return x  
-    
     
     def quantise(self, x, k, do_quantise=False):
-        if( not do_quantise):
-            output=x        
-        Min=torch.min(x)
         Max=torch.max(x)
-        output=torch.round(((2**k)-1)*(x- Min)/(Max-Min))
-        output=Min+(Max-Min)*output/((2**k)-1)
+        Min=torch.min(x)
+        if Max<-Min:
+            Max=-Min
+        if( not do_quantise):
+            return x
+        Digital=torch.round(((2**k)-1)*x/Max)
+        output=Max*Digital/((2**k)-1)
         return output
+
+    def inference(self, x, do_quantise = True, do_add_var =True):
+        if (do_quantise and (not self.quantise_weight_flag)):
+            self.quantise_weight_flag=True
+            self.quantise_weight()
+        #layer 1     
+        x = F.relu(self.add_variations( self.conv1(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_conv1 , self.bit_out,input_channels=self.input_size,kernel_size=3, do_add_var=do_add_var ))
+        #layer 2
+        x = F.relu(self.add_variations( self.conv2(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_conv2 , self.bit_out,input_channels=64,kernel_size=3, do_add_var=do_add_var ))
+        #maxpool
+        x = self.maxpool1(x)
+ 
+        #layer 3
+        x = F.relu(self.add_variations( self.conv3(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_conv3 , self.bit_out,input_channels=64,kernel_size=3, do_add_var=do_add_var ))
+        #layer 4
+        x = F.relu(self.add_variations( self.conv4(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_conv4 , self.bit_out,input_channels=128,kernel_size=3, do_add_var=do_add_var ))
+        x = self.maxpool2(x)  
+        #layer 5
+        x = F.relu(self.add_variations( self.conv5(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_conv5 , self.bit_out,input_channels=128,kernel_size=3, do_add_var=do_add_var ))
+        #layer 6
+        x = F.relu(self.add_variations( self.conv6(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_conv6 , self.bit_out,input_channels=256,kernel_size=3, do_add_var=do_add_var ))
+        #layer 7
+        x = F.relu(self.add_variations( self.conv7(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_conv7 , self.bit_out,input_channels=256,kernel_size=3, do_add_var=do_add_var ))
+        x = self.maxpool3(x)
+
+        x = x.view(x.size(0), -1)
+        #linear1
+        x = F.relu(self.add_variations( self.linear1(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_linear1 ,self.bit_out,input_channels=4096,kernel_size=1,do_add_var=do_add_var ))
+        #linear2
+        x = F.relu(self.add_variations( self.linear2(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_linear2 , self.bit_out,input_channels=4096,kernel_size=1, do_add_var=do_add_var ))
+        #classifier
+        x = self.add_variations( self.classifier(self.quantise(x,self.bit_A,do_quantise=do_quantise)), self.error_classifier , self.bit_out, input_channels=4096, kernel_size=1, do_add_var=do_add_var )
+        return (x)
                 
     
-    def AddError(self, x, inp_channels=0, error_table=0, k=3, st=1, p=1, bit_out=5, mode=True, do_add_error=True):
-        if (not do_add_error):
+    def add_variations(self,x,error,k, input_channels, kernel_size,  do_add_var=True):
+        if(not do_add_var):
             return x
-        noofterms = inp_channels*k*k
-        levels = noofterms*(2**bit_out-1)
-        Min=x.min()
-        Max=x.max()
-        if(mode): 
+        Max=torch.max(x)
+        Min=torch.min(x)
+        no_of_terms = input_channels*kernel_size*kernel_size/self.noofacc
+        levels= (2**k-1)*no_of_terms
+            
+        if (Min<0):
             outp = torch.zeros(x.size()).cuda()
             outn = torch.zeros(x.size()).cuda()
-            error_out = torch.round(error_table)
+            error_out = torch.round(error)
             outp = torch.round(torch.where(x>0,x,outp)*levels/Max)
-            outn = torch.round(torch.where(x<0,x,outn)*levels/Min)
+            outn = torch.round(torch.where(x<0,-x,outn)*levels/Min)
+            
             out= (outp+outn)+error_out
+            
             outp=torch.zeros(x.size()).cuda()
             outn=torch.zeros(x.size()).cuda()
+            
             outp=torch.clamp(torch.where(x>0,out,outp),0,levels)*Max/levels
-            outn=torch.clamp(torch.where(x<0,out,outn),0,-levels)*Min/levels
-            out1=outp+outn
-        else: 
-            if(k==3):
-                outp=torch.zeros(x.size()).cuda()
-                outn=torch.zeros(x.size()).cuda()
-                n=torch.distributions.normal.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(noofterms)]))
-                error_out = n.sample((x.size()[0],x.size()[1],x.size()[2],x.size()[3],)).view(x.size()[0],x.size()[1],x.size()[2],x.size()[3]).cuda()
-                outp=torch.round(torch.where(x>0,x,outp)*levels/Max)
-                outn=torch.round(torch.where(x<0,x,outn)*levels/Min)
-                out= (outp+outn)+error_out
-                outp=torch.zeros(x.size()).cuda()
-                outn=torch.zeros(x.size()).cuda()
-                outp=torch.clamp(torch.where(x>0,out,outp),0,levels)*Max/levels
-                outn=torch.clamp(torch.where(x<0,out,outn),0,-levels)*Min/levels
-                out1=outp+outn
-            else:
-                outp=torch.zeros(x.size()).cuda()
-                outn=torch.zeros(x.size()).cuda()
-                n=torch.distributions.normal.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(noofterms)]))
-                error_out = n.sample((x.size()[0],x.size()[1],)).view(x.size()[0],x.size()[1]).cuda()
-                outp=torch.round(torch.where(x>0,x,outp)*levels/Max)
-                outn=torch.round(torch.where(x<0,x,outn)*levels/Min)
-                out= (outp+outn)+error_out
-                outp=torch.zeros(x.size()).cuda()
-                outn=torch.zeros(x.size()).cuda()
-                outp=torch.clamp(torch.where(x>0,out,outp),0,levels)*Max/levels
-                outn=torch.clamp(torch.where(x<0,out,outn),0,-levels)*Min/levels
-                out1=outp+outn
-        return out1
+            outn=torch.clamp(torch.where(x<0,out,outn),0,levels)*Min/levels
+            
+            out1=outp-outn
+        else:
+            outp=x
+            error_out = torch.round(error)
+            outp = torch.round(torch.where(x>0,x,outp)*levels/Max)
+            out= outp+error_out
+            outp=torch.zeros(x.size()).cuda()
+            outp=torch.clamp(torch.where(x>0,out,outp),0,levels)*Max/levels
+            out1=outp
+        return out1 
         
     
-    def quantise_weigths(self,do_quantise=True):
+    def quantise_weight(self,do_quantise=True):
         self.conv1.weight.data = self.quantise(self.conv1.weight.data,self.bit_W,do_quantise=do_quantise)
         self.conv2.weight.data = self.quantise(self.conv2.weight.data,self.bit_W,do_quantise=do_quantise)
         self.conv3.weight.data = self.quantise(self.conv3.weight.data,self.bit_W,do_quantise=do_quantise)
@@ -185,25 +170,25 @@ class vgg(nn.Module):
         self.classifier.weight.data = self.quantise(self.classifier.weight.data,self.bit_W,do_quantise=do_quantise)
         
     def error_initialiser(self) :
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(3*3*3)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(3*3*3/self.noofacc)]))
         self.error_conv1=n.sample((64,32,32,)).view(64,32,32).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(64*3*3)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(64*3*3/self.noofacc)]))
         self.error_conv2=n.sample((64,32,32,)).view(64,32,32).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(64*3*3)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(64*3*3/self.noofacc)]))
         self.error_conv3=n.sample((128,16,16,)).view(128,16,16).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(128*3*3)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(128*3*3/self.noofacc)]))
         self.error_conv4=n.sample((128,16,16,)).view(128,16,16).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(128*3*3)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(128*3*3/self.noofacc)]))
         self.error_conv5=n.sample((256,8,8,)).view(256,8,8).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(256*3*3)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(256*3*3/self.noofacc)]))
         self.error_conv6=n.sample((256,8,8,)).view(256,8,8).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(256*3*3)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(256*3*3/self.noofacc)]))
         self.error_conv7=n.sample((256,8,8,)).view(256,8,8).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(4096)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(4096/self.noofacc)]))
         self.error_linear1=n.sample((4096,)).view(4096).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(4096)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(4096/self.noofacc)]))
         self.error_linear2=n.sample((4096,)).view(4096).cuda()
-        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(10)]))
+        n=torch.distributions.Normal(torch.tensor([0.0]),torch.tensor([self.sigma*math.sqrt(10/self.noofacc)]))
         self.error_classifier=n.sample((10,)).view(10).cuda()
         
 
