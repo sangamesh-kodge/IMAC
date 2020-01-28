@@ -47,7 +47,7 @@ test_loader = torch.utils.data.DataLoader(
     transform=transform_test),
     batch_size=test_batch_size, shuffle=False, **kwargs)
     
-model = lenet(input_size=1,bit_W=4,bit_A=6,sigma=1.25)
+model = lenet(input_size=1,bit_W=4,bit_A=4,sigma=0.6)
 if cuda:
     model.cuda()
 
@@ -72,7 +72,7 @@ def train(epoch):
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.data.item()))
             
-def test(epoch, best_loss, best_epoch, best_correct, do_quantise,do_add_error,mode,update=False):
+def test(epoch, best_loss, best_epoch, best_correct, do_quantise,do_add_var,mode,update=False):
     model.eval()
     test_loss = 0
     correct = 0
@@ -80,14 +80,14 @@ def test(epoch, best_loss, best_epoch, best_correct, do_quantise,do_add_error,mo
         if cuda:
             data, target = data.cuda(), target.cuda()
         data, target = Variable(data), Variable(target)
-        #output = model.inference(data, do_quantise=do_quantise)
-        output = model(data)
+        #output = model.inference(data, do_quantise= do_quantise, do_add_var= do_add_var)
+        output = model(data, training = False)
         # sum up batch loss
         test_loss += criterion(output, target).data.item()
         # get the index of the max log-probability
         pred = output.data.max(1, keepdim=True)[1]
         correct += pred.eq(target.data.view_as(pred)).long().cpu().sum()
-        if (batch_idx % 30 == 0 and do_add_error==True):
+        if (batch_idx % 30 == 0 and do_add_var==True):
             print('Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(
                     test_loss, correct, batch_idx*test_batch_size+test_batch_size, 100. * correct /
                     (batch_idx*test_batch_size+test_batch_size)))
@@ -104,14 +104,14 @@ def test(epoch, best_loss, best_epoch, best_correct, do_quantise,do_add_error,mo
         best_loss = test_loss
         best_correct=correct
         if (update):
-            torch.save(model, "lenet_parameter.pt")
+            torch.save(model, "lenet_parameter_noinf.pt")
             
     return best_loss, best_epoch, best_correct,correct
 
 for epoch in range(100):
     scheduler.step()
     train(epoch)
-    best_loss, best_epoch, best_correct,_ = test(epoch, best_loss, best_epoch, best_correct, do_quantise=False,do_add_error=False,mode=False,update=True)
+    best_loss, best_epoch, best_correct,_ = test(epoch, best_loss, best_epoch, best_correct, do_quantise=False,do_add_var=False,mode=False,update=True)
  
 
 
