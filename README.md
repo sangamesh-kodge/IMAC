@@ -4,6 +4,7 @@ This repository contains the codes used for the work done in the pape r"In-Memor
 Please find the paper 
 
 @author: Sangamesh Kodge
+
 @copyright: Nanoelectronics Research Laboratory 
 
 Application Level:
