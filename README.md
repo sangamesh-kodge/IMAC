@@ -5,7 +5,7 @@ Please find the paper
 
 @author: Sangamesh Kodge
 
-@copyright: Nanoelectronics Research Laboratory 
+@copyright: Nanoelectronics Research Laboratory, Purdue
 
 Application Level:
 
