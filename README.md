@@ -1,8 +1,6 @@
 # IMAC (Accepted in TCAS)
 
-This repository contains the codes used for the work done in the pape r"In-Memory Multi-Bit Multiplication in 6 Transistor SRAM Cells". 
-
-
+This repository contains the codes used for the work done in the paper "In-Memory Multi-Bit Multiplication in 6 Transistor SRAM Cells" (https://ieeexplore.ieee.org/document/9050543). 
 @author: Sangamesh Kodge
 
 @copyright: Nanoelectronics Research Laboratory, Purdue
