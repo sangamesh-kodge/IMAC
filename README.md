@@ -2,8 +2,7 @@
 
 This repository contains the codes used for the work done in the paper "In-Memory Multi-Bit Multiplication in 6 Transistor SRAM Cells" (https://ieeexplore.ieee.org/document/9050543). 
 
-@author: Sangamesh Kodge
-
+@author: Mustafa Ali, Akhilesh Jaiswal, Sangamesh Kodge, Amogh Agrawal, Indranil Chakraborty and Kaushik Roy
 @copyright: Nanoelectronics Research Laboratory, Purdue
 
 Application Level:
